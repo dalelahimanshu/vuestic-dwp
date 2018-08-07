@@ -1,6 +1,6 @@
 # Epsilon Dashboard
 
-Epsilon dashboard is Responsive design built with [Vue.js](https://vuejs.org) and [Bootstrap 4](https://v4-alpha.getbootstrap.com). 
+Epsilon dashboard is Responsive design built with [Vue.js](https://vuejs.org) and [Bootstrap 4](https://v4-alpha.getbootstrap.com).
 
 <p align="center">
   <a href="http://vuestic.epicmax.co" target="_blank">
