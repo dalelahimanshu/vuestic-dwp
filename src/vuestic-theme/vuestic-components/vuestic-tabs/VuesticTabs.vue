@@ -31,6 +31,7 @@
     methods: {
       setActive (name) {
         this.currentActive = name
+        this.$emit('tabs:clicked', name)
       }
     },
     data () {

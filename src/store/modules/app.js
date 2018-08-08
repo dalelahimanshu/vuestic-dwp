@@ -6,6 +6,7 @@ const state = {
     withoutAnimation: false
   },
   config: {
+    baseUrl: 'https://plg359b789.execute-api.us-west-2.amazonaws.com/v1/',
     googleMaps: {
       apiKey: 'AIzaSyBNAqPrTQoz9P4NBlDDyfxrnKiafkaL8iQ'
     },

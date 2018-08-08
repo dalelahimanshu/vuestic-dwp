@@ -31,6 +31,13 @@
     "pieChart": "Pie Chart",
     "verticalBarChart": "Vertical Bar Chart"
   },
+  "home": {
+    "elements": "Elementos",
+    "success": "ÉXITO",
+    "successMessage": "Ha leído correctamente este mensaje de alerta importante.",
+    "teamMembers": "Miembros del Equipo",
+    "versions": "Versiones"
+  },
   "dashboard": {
     "elements": "Elementos",
     "success": "ÉXITO",

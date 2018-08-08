@@ -32,6 +32,7 @@
       :perPage="perPage"
       :queryParams="queryParams"
       @vuetable:pagination-data="onPaginationData"
+      @vuetable:cell-clicked="onCellClicked"
     />
     <div class="d-flex justify-content-center mb-4">
       <vuetable-pagination ref="pagination"
@@ -62,6 +63,10 @@
       ItemsPerPage
     },
     props: {
+      eventPrefix: {
+        type: String,
+        default: 'vuetable:'
+      },
       apiUrl: {
         type: String
       },
@@ -213,6 +218,9 @@
     },
 
     methods: {
+      onCellClicked (dataItem, field, event) {
+        this.$emit(this.eventPrefix + 'cell-clicked', dataItem, field, event)
+      },
       onFilterSet (filterText) {
         this.filterText = filterText
         Vue.nextTick(() => this.$refs.vuetable.refresh())
@@ -283,6 +291,14 @@
     @media (max-width: 576px) {
       .hide-not-focused-btn:not(.focus) {
         display: none;
+      }
+    }
+    .vuetable {
+      td.column-data-link {
+        cursor: pointer !important
+      }
+      td.column-data-link:hover {
+        color: $vue-green
       }
     }
   }

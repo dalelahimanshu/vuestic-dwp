@@ -34,6 +34,17 @@
     "donutChart": "Donut Chart",
     "bubbleChart": "Bubble Chart"
   },
+  "home": {
+    "dataVisualization": "Data Visualization",
+    "success": "SUCCESS",
+    "successMessage": "You successfully read this important alert message.",
+    "elements": "Profile in Success",
+    "features": "Features",
+    "setupProfile": "Setup Profile",
+    "teamMembers": "Warnings",
+    "usersAndMembers": "Users & Members",
+    "versions": "Profile in Error"
+  },
   "dashboard": {
     "dataVisualization": "Data Visualization",
     "success": "SUCCESS",
@@ -164,6 +175,7 @@
     "auth": "Auth",
     "buttons": "Buttons",
     "charts": "Charts",
+    "home": "Home",
     "dashboard": "Dashboard",
     "extra": "Extra",
     "formElements": "Form Elements",
@@ -225,7 +237,7 @@
     "title": "Progress Bars"
   },
   "tables": {
-    "dryadJob": "Dryad Job Output Table",
+    "dryadProfile": "Dryad Profile Output Table",
     "basic": "Basic Table",
     "styled": "Colors, Icons, Labels",
     "advanced": "Search & Pagination",

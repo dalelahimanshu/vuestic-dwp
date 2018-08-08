@@ -1,18 +1,26 @@
 <template>
   <div id="app" class="app">
-    <home-layout></home-layout>
+    <layout v-if="!isAuth"/>
+    <auth-layout v-else></auth-layout>
   </div>
 </template>
 
 <script>
-  import HomeLayout from 'components/layout/HomeLayout'
+  import Layout from 'components/layout/Layout'
+  import AuthLayout from 'components/layout/AuthLayout'
   import VuesticPreLoader from 'vuestic-components/vuestic-preloader/VuesticPreLoader.vue'
 
   export default {
     name: 'app',
     components: {
       VuesticPreLoader,
-      HomeLayout
+      AuthLayout,
+      Layout
+    },
+    computed: {
+      isAuth () {
+        return this.$route.path.match('auth')
+      }
     }
   }
 </script>

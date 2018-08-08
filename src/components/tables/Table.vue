@@ -2,33 +2,6 @@
   <div>
     <div class="row">
       <div class="col-xs-12 col-md-12">
-        <vuestic-widget :headerText="$t('tables.dryadJob')">
-          <div v-if="jobOutput == null || jobOutput.Items == null|| jobOutput.Items.length ==0" class="empty">No Record Found.</div>
-          <div v-if="!(jobOutput == null || jobOutput.Items == null|| jobOutput.Items.length ==0)">
-            <div class="table-responsive">
-              <table class="table table-striped first-td-padding">
-                <thead>
-                <tr>
-                  <td v-for="value, key in jobOutput.Items[0]">
-                    {{key}}
-                  </td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="item in jobOutput.Items">
-                  <td v-for="value, key in item">
-                    {{value}}
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </vuestic-widget>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-md-12">
         <vuestic-widget :headerText="$t('tables.basic')">
           <div class="table-responsive">
             <table class="table table-striped first-td-padding">
