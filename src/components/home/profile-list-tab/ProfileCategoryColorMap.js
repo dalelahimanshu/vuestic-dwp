@@ -1,8 +1,8 @@
 export default {
-  CATEGORY01: 'warning',
-  CATEGORY02: 'primary',
-  CATEGORY03: 'danger',
-  MCF: 'info',
-  MFN: 'dark-blue',
+  SALES: 'warning',
+  REFUNDS: 'primary',
+  MISC: 'danger',
+  RETURNS: 'info',
+  MCF: 'dark-blue',
   INBOUND: 'violet'
 }

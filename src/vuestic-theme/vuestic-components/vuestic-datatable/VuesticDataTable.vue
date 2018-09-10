@@ -300,6 +300,9 @@
       td.column-data-link:hover {
         color: $vue-green
       }
+      .icon-added {
+        color: $vue-green;
+      }
     }
   }
 </style>
