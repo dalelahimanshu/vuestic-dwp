@@ -32,6 +32,7 @@
       </div>
       <div class="col-md-8" v-if="tableData.data.length > 0">
         <vuestic-data-table
+          v-if="tableData.loaded"
           :apiMode="apiMode"
           :tableData="tableData"
           :tableFields="tableFields"
@@ -86,6 +87,9 @@
       }
     },
     watch: {
+      favouriteProfiles: function () {
+        this.updateProfileList()
+      },
       profileList: function (newVal, oldVal) {
         if (newVal.length >= 0) {
           this.updateProfileList()
@@ -165,14 +169,20 @@
         this.$emit('update-profile-selection', profile)
       },
       updateProfileList () {
+        this.tableData.loaded = false
         var records = [...this.profileList]
         records = records.filter(el => (this.category !== 'All') ? (el.categoryName === this.category) : true)
         for (var i = 0; i < records.length; i++) {
           let profile = records[i]
-          profile['favourite'] = this.isFavouriteProfile(profile) ? 'Remove' : 'Add'
+          let add = '<i class="fa fa-star-o">'
+          let remove = '<i class="fa fa-star icon-added">'
+          profile['favourite'] = this.isFavouriteProfile(profile) ? remove : add
           records[i] = profile
         }
-        this.tableData.data = records
+        setTimeout(() => {
+          this.tableData.loaded = true
+          this.tableData.data = records
+        }, 0)
       },
       isFavouriteProfile: function (profile) {
         let index = this.favouriteProfileList.findIndex((item, i) => {
@@ -198,6 +208,20 @@
       font-size: 19px;
       color: #4ae387;
       margin-right: 14px;
+    }
+
+    .icon-default {
+      font-size: 19px;
+    }
+
+    .icon-added {
+      font-size: 20px;
+      color: $vue-green;
+    }
+
+    .icon-hover {
+      font-size: 19px;
+      color: $vue-green;
     }
   }
 </style>

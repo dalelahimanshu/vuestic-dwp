@@ -119,8 +119,9 @@
                         <tr>
                           <td></td>
                           <td
+                            :class="{'monitored-column': columnData.monitor}"
                             v-if="!filter.column.monitor || (filter.column.monitor && columnData.monitor)"
-                            v-for="columnData, columnName in records[0]">
+                            v-for="columnData, columnName in records[records.maxColumnCountIndex]">
                               {{columnName}}
                           </td>
                         </tr>
@@ -190,7 +191,7 @@
         this.setSelectedProfile(profile)
       },
       selectedProfile: function (profile) {
-        if (this.isValid(profile.profileId)) {
+        if (profile && this.isValid(profile.profileId)) {
           this.triggerProfileSelection(profile)
         }
       },
@@ -255,7 +256,7 @@
         this.$emit('update-profile-selection', profile)
       },
       fetchProfileDetail () {
-        if (this.isValid(this.dp.datasetDate) && this.isValid(this.selectedProfile.profileId)) {
+        if (this.isValid(this.dp.datasetDate) && this.isValid(this.selectedProfile) && this.isValid(this.selectedProfile.profileId)) {
           this.dataProcessing = true
           var profileDetailUrl = this.config.baseUrl + 'fetchdwpdata'
           profileDetailUrl = profileDetailUrl + '?date=' + this.dp.datasetDate
@@ -275,12 +276,16 @@
       },
       fetchProfileDetailHandler (profileDetailData) {
         var columnRuleMap = this.transformColumnRules(profileDetailData.rules.column)
+        let maxColumnCountIndex = 0
+        let maxColumnCount = 0
         for (var i = 0; i < profileDetailData.records.length; i++) {
           var row = profileDetailData.records[i]
           var rowMetaData = {}
           rowMetaData.critical = false
           rowMetaData.warning = false
+          let columnCount = 0
           for (var column in row) {
+            columnCount++
             if (row.hasOwnProperty(column)) {
               var val = row[column]
               row[column] = {}
@@ -309,11 +314,16 @@
               }
             }
           }
+          if (columnCount > maxColumnCount) {
+            maxColumnCount = columnCount
+            maxColumnCountIndex = i
+          }
           this.defineProperty(row, 'metaData', rowMetaData)
           profileDetailData.records[i] = row
         }
         this.records = profileDetailData.records
         this.defineProperty(this.records, 'empty', this.records.length === 0)
+        this.defineProperty(this.records, 'maxColumnCountIndex', maxColumnCountIndex)
         this.dataProcessing = false
       },
       transformColumnRules (columnRules) {
@@ -426,6 +436,10 @@
 
     .table-margin-bottom {
       margin-bottom: 0 ! important;
+    }
+
+    .monitored-column {
+        color: $vue-green;
     }
   }
 </style>

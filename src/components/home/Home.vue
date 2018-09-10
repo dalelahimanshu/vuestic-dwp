@@ -124,25 +124,29 @@
         this.categories = categories
       },
       updateRecentProfile (profile) {
-        var index = this.recentProfiles.findIndex(function (item, i) {
-          return item.profileName === profile.profileName
-        })
-        if (index > -1) {
-          this.recentProfiles.splice(index, 1)
+        if (profile) {
+          var index = this.recentProfiles.findIndex(function (item, i) {
+            return item.profileName === profile.profileName
+          })
+          if (index > -1) {
+            this.recentProfiles.splice(index, 1)
+          }
+          this.recentProfiles.unshift(profile)
+          this.setStorage('EPSILON_LS.DRYAD_PROFILE_RECENT_LIST', this.recentProfiles)
         }
-        this.recentProfiles.unshift(profile)
-        this.setStorage('EPSILON_LS.DRYAD_PROFILE_RECENT_LIST', this.recentProfiles)
       },
       toggleFavouriteProfile (profile) {
-        var index = this.favouriteProfiles.findIndex(function (item, i) {
+        let favouriteList = JSON.parse(JSON.stringify(this.favouriteProfiles))
+        var index = favouriteList.findIndex(function (item, i) {
           return item.profileName === profile.profileName
         })
         if (index > -1) {
-          this.favouriteProfiles.splice(index, 1)
+          favouriteList.splice(index, 1)
         } else {
-          this.favouriteProfiles.unshift(profile)
+          favouriteList.unshift(profile)
         }
-        this.setStorage('EPSILON_LS.DRYAD_PROFILE_FAVOURITE_LIST', this.recentProfiles)
+        this.setStorage('EPSILON_LS.DRYAD_PROFILE_FAVOURITE_LIST', favouriteList)
+        this.favouriteProfiles = JSON.parse(JSON.stringify(favouriteList))
       },
       getStorage (item) {
         if (localStorage.getItem(item)) {

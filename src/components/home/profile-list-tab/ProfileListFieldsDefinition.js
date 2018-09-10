@@ -1,9 +1,10 @@
 export default {
   tableFields: [
     {
-      name: '__component:profile-list-badge-column',
+      name: 'favourite',
       title: '',
-      dataClass: 'text-center'
+      titleClass: 'text-center',
+      dataClass: 'column-data-link text-center'
     },
     {
       name: 'profileName',
