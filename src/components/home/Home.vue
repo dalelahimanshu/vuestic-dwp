@@ -54,11 +54,14 @@
 <script>
   import axios from 'axios'
   import { mapGetters } from 'vuex'
+  import VueWorker from 'vue-worker'
   import { FulfillingBouncingCircleSpinner } from 'epic-spinners'
   import HomeInfoWidgets from './HomeInfoWidgets'
   import ProfileListVisualisationTab from './profile-list-tab/ProfileListVisualisation.vue'
   import ProfileDetailWidget from './profile-detail-widget/ProfileDetailWidget.vue'
   import ProfileListTableData from './data/ProfileListTableData'
+
+  Vue.use(VueWorker)
 
   export default {
     name: 'home',
@@ -106,9 +109,17 @@
       },
       getProfileListHandler (profileListData) {
         setTimeout(() => {
+          this.initProfileWebWorker(profileListData)
           this.profileList = profileListData
           this.updateCategories()
         }, 0)
+      },
+      initProfileWebWorker (profileList) {
+        if (typeof(Worker) !== "undefined") {
+          w = new Worker("demo_workers.js")
+        } else {
+          console.log('Sorry! No Web Worker support..')
+        }
       },
       updateCategories () {
         var categoryMap = {}
