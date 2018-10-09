@@ -133,16 +133,18 @@
                           <td v-if="row.metaData.critical"><span class="badge badge-pill badge-danger">CRITICAL</span></td>
                           <td v-else-if="row.metaData.warning"><span class="badge badge-pill badge-warning">WARNING</span></td>
                           <td v-else></td>
-                          <td v-for="columnData, columnName in row"
-                            v-if="!filter.column.monitor || (filter.column.monitor && columnData.monitor)"
+                          <td v-for="columnData, columnName in records[records.maxColumnCountIndex]"
+                            v-if="!filter.column.monitor || (filter.column.monitor && row[columnName] && row[columnName].monitor)"
                             v-bind:class="{
-                              'table-danger': columnData.showAlert && columnData.critical,
-                              'table-warning': columnData.showAlert && columnData.warning
+                              'table-danger': row[columnName] && row[columnName].showAlert && row[columnName].critical,
+                              'table-warning': row[columnName] && row[columnName].showAlert && row[columnName].warning
                               }">
-                              <div v-tooltip.top-center="columnData.rule.message">
-                                {{columnData.value}}
-                                <i v-if="columnData.showAlert && columnData.critical" class="glyphicon glyphicon-alert error-icon"></i>
-                                <i v-if="columnData.showAlert && columnData.warning" class="glyphicon glyphicon-warning-sign warning-icon"></i>
+                              <div v-tooltip.top-center="row[columnName] && row[columnName].rule.message">
+                                <span v-if="row[columnName]">
+                                  {{row[columnName].value}}
+                                  <i v-if="row[columnName].showAlert && row[columnName].critical" class="glyphicon glyphicon-alert error-icon"></i>
+                                  <i v-if="row[columnName].showAlert && row[columnName].warning" class="glyphicon glyphicon-warning-sign warning-icon"></i>
+                                </span>
                               </div>
                           </td>
                         </tr>
