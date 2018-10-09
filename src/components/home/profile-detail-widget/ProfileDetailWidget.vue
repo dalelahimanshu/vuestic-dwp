@@ -300,7 +300,11 @@
                 let orderedRules = columnRuleMap[column]
                 for (let i = 0; i < orderedRules.length; i++) {
                   let rule = orderedRules[i]
-                  row[column].showAlert = this.testRegex(val, rule.regex)
+                  if (rule.validationType === 'REGEX') {
+                    row[column].showAlert = this.testRegex(val, rule.regex)
+                  } else if (rule.validationType === 'MIN_MAX') {
+                    row[column].showAlert = this.testMinMax(val, rule.rangeMin, rule.rangeMax)
+                  }
                   if (row[column].showAlert) {
                     row[column].rule = rule
                     row[column].severity = rule.severity
@@ -365,6 +369,12 @@
           console.log('Invalid regular expression : ' + expr + ' .Error Stack : ' + e)
           return true
         }
+      },
+      testMinMax (val, min, max) {
+        if (this.isValid(val) && this.isValid(min) && this.isValid(max)) {
+          return !(val >= min && val <= max)
+        }
+        return false
       },
       isValid (val) {
         if (val && val !== undefined && val !== null && val !== '') {
